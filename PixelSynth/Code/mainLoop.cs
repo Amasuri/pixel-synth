@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PixelSynth.Code.Controller;
 using PixelSynth.Code.Sound;
 using System;
 using System.IO;
@@ -17,6 +18,7 @@ namespace PixelSynth.Code
         private SpriteBatch spriteBatch;
 
         private SoundDriver soundDriver;
+        private KeyController controller;
 
         public PixelSynth()
         {
@@ -29,6 +31,7 @@ namespace PixelSynth.Code
             // TODO: Add your initialization logic here
 
             soundDriver = new SoundDriver();
+            controller = new KeyController();
 
             base.Initialize();
         }
@@ -48,14 +51,7 @@ namespace PixelSynth.Code
 
         protected override void Update(GameTime gameTime)
         {
-            var keys = Keyboard.GetState();
-
-            if (keys.IsKeyDown(Keys.Z))
-                soundDriver.PlayPacket(Note.Type.C, 4);
-            if (keys.IsKeyDown(Keys.X))
-                soundDriver.PlayPacket(Note.Type.D, 4);
-
-            // TODO: Add your update logic here
+            controller.Update(soundDriver);
 
             base.Update(gameTime);
         }
