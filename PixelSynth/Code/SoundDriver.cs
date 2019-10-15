@@ -1,4 +1,5 @@
-﻿using PixelSynth.Code.Occilator;
+﻿using PixelSynth.Code.Effect;
+using PixelSynth.Code.Occilator;
 using PixelSynth.Code.Sound;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,13 @@ namespace PixelSynth.Code
 {
     public class SoundDriver
     {
+        public Preset CurrentPreset { get; private set; }
+        public enum Preset
+        {
+            Default,
+            Blurp,
+        }
+
         private double[] packet1;
         private double[] packet2;
 
@@ -24,12 +32,29 @@ namespace PixelSynth.Code
         {
             player = new SoundPlayer();
             sineOccilator = new SineOccilator(samplesPerSecond);
+
+            CurrentPreset = Preset.Default;
+        }
+
+        public void SwitchPresetTo(Preset preset)
+        {
+            CurrentPreset = preset;
+        }
+
+        public void PlayPacket(Note.Type note, int octave)
+        {
+            GetBasicPacketFromOccilator(note, octave);
+            ModifyGeneratedPacket();
+            WritePacketToMemoryAsWave(packet1, packet1.Length);
+
+            player.Stream.Seek(0, SeekOrigin.Begin);
+            player.Play();
         }
 
         /// <summary>
         /// Writes sampled data to memory and plays it.
         /// </summary>
-        private void GenerateNextPacket(double[] sampleData, long sampleCount)
+        private void WritePacketToMemoryAsWave(double[] sampleData, long sampleCount)
         {
             MemoryStream stream = new MemoryStream();
             BinaryWriter writer = new BinaryWriter(stream);
@@ -90,7 +115,7 @@ namespace PixelSynth.Code
             stream.Close();
         }
 
-        public void PlayPacket(Note.Type note, int octave)
+        private void GetBasicPacketFromOccilator(Note.Type note, int octave)
         {
             packet1 = new double[samplesPerSecond];
             sineOccilator.SetFrequency(Note.GetNote(note, octave));
@@ -99,11 +124,16 @@ namespace PixelSynth.Code
             {
                 packet1[i] = sineOccilator.GetNext(i);
             }
+        }
 
-            GenerateNextPacket(packet1, packet1.Length);
-
-            player.Stream.Seek(0, SeekOrigin.Begin);
-            player.Play();
+        private void ModifyGeneratedPacket()
+        {
+            if (CurrentPreset == Preset.Blurp)
+            {
+                packet1 = ElementaryEffect.BitDecimator(packet1);
+                packet1 = ElementaryEffect.BitMediator(packet1);
+                packet1 = ElementaryEffect.BitHyperbolicCut(packet1);
+            }
         }
     }
 }

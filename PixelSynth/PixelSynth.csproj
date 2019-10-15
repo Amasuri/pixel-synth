@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Controller\KeyController.cs" />
+    <Compile Include="Code\Effect\ElementaryEffect.cs" />
     <Compile Include="Code\Graphics\ADrawingClass.cs" />
     <Compile Include="Code\Graphics\IDrawArranger.cs" />
     <Compile Include="Code\Graphics\ScreenPool.cs" />

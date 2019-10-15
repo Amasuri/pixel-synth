@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using System;
+using Microsoft.Xna.Framework.Input;
 using PixelSynth.Code.Sound;
+using static PixelSynth.Code.SoundDriver;
 
 namespace PixelSynth.Code.Controller
 {
@@ -15,6 +17,22 @@ namespace PixelSynth.Code.Controller
         {
             keys = Keyboard.GetState();
 
+            PlayNotes(soundDriver);
+            SwitchPresets(soundDriver);
+
+            oldKeys = keys;
+        }
+
+        private void SwitchPresets(SoundDriver soundDriver)
+        {
+            if (keys.IsKeyDown(Keys.D1) && oldKeys.IsKeyUp(Keys.D1))
+                soundDriver.SwitchPresetTo(Preset.Default);
+            else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
+                soundDriver.SwitchPresetTo(Preset.Blurp);
+        }
+
+        private void PlayNotes(SoundDriver soundDriver)
+        {
             if (keys.IsKeyDown(Keys.LeftShift))
             {
                 lastOctave = 4;
@@ -87,8 +105,6 @@ namespace PixelSynth.Code.Controller
                 lastNote = Note.Type.GSharp;
                 soundDriver.PlayPacket(Note.Type.GSharp, 4);
             }
-
-            oldKeys = keys;
         }
     }
 }

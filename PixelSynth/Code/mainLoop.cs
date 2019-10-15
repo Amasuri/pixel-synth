@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using PixelSynth.Code.Controller;
-using PixelSynth.Code.Sound;
 using PixelSynth.Code.View;
-using System;
-using System.IO;
-using System.Media;
 
 namespace PixelSynth.Code
 {
@@ -41,10 +36,6 @@ namespace PixelSynth.Code
             infoBar = new InfoBar(this);
         }
 
-        protected override void UnloadContent()
-        {
-        }
-
         protected override void Update(GameTime gameTime)
         {
             controller.Update(soundDriver);
@@ -58,7 +49,7 @@ namespace PixelSynth.Code
 
             spriteBatch.Begin();
 
-            infoBar.Draw(spriteBatch, controller);
+            infoBar.Draw(spriteBatch, controller, soundDriver);
 
             spriteBatch.End();
 
