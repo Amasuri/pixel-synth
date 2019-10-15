@@ -16,8 +16,8 @@ namespace PixelSynth.Code
         public Preset CurrentPreset { get; private set; }
         public enum Preset
         {
-            Default,
-            Blurp,
+            Sinusoidal,
+            SoftReverbClap,
         }
 
         private double[] packet1;
@@ -33,7 +33,7 @@ namespace PixelSynth.Code
             player = new SoundPlayer();
             sineOccilator = new SineOccilator(samplesPerSecond);
 
-            CurrentPreset = Preset.Default;
+            CurrentPreset = Preset.Sinusoidal;
         }
 
         public void SwitchPresetTo(Preset preset)
@@ -128,7 +128,7 @@ namespace PixelSynth.Code
 
         private void ModifyGeneratedPacket()
         {
-            if (CurrentPreset == Preset.Blurp)
+            if (CurrentPreset == Preset.SoftReverbClap)
             {
                 packet1 = ElementaryEffect.BitDecimator(packet1);
                 packet1 = ElementaryEffect.BitMediator(packet1);
