@@ -3,15 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PixelSynth.Code.Controller;
 using PixelSynth.Code.Sound;
+using PixelSynth.Code.View;
 using System;
 using System.IO;
 using System.Media;
 
 namespace PixelSynth.Code
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class PixelSynth : Game
     {
         private GraphicsDeviceManager graphics;
@@ -19,6 +17,8 @@ namespace PixelSynth.Code
 
         private SoundDriver soundDriver;
         private KeyController controller;
+
+        private InfoBar infoBar;
 
         public PixelSynth()
         {
@@ -28,8 +28,6 @@ namespace PixelSynth.Code
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             soundDriver = new SoundDriver();
             controller = new KeyController();
 
@@ -38,15 +36,13 @@ namespace PixelSynth.Code
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            infoBar = new InfoBar();
         }
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,7 +56,11 @@ namespace PixelSynth.Code
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            infoBar.Draw(spriteBatch, controller);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
