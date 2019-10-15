@@ -38,7 +38,7 @@ namespace PixelSynth.Code
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            infoBar = new InfoBar();
+            infoBar = new InfoBar(this);
         }
 
         protected override void UnloadContent()
