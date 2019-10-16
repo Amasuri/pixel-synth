@@ -182,7 +182,7 @@ namespace PixelSynth.Code
                 else
                     GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
 
-                packet1 = ElementaryEffect.BitChord(packet1, supportPacket1, supportPacket2);
+                packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
             }
 
             if (CurrentPreset == Preset.MinorChord)
@@ -203,7 +203,7 @@ namespace PixelSynth.Code
                 else
                     GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
 
-                packet1 = ElementaryEffect.BitChord(packet1, supportPacket1, supportPacket2);
+                packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
             }
         }
     }

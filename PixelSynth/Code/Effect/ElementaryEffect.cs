@@ -41,7 +41,7 @@
             return npacket;
         }
 
-        static public double[] BitChord(double[] packet1, double[] packet2, double[] packet3)
+        static public double[] TriWaveAddition(double[] packet1, double[] packet2, double[] packet3)
         {
             double[] npacket = (double[])packet1.Clone();
 

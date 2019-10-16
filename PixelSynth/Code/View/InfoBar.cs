@@ -19,7 +19,7 @@ namespace PixelSynth.Code.View
         {
             string noteInfo = String.Format
                 (
-                    "Note: {0}\nOctave: {1}\nFrequency: {2}\nPreset: {3}\nWave: {4}",
+                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\nPreset: {3}\nWave: {4}",
                     controller.lastNote.ToString(),
                     controller.lastOctave.ToString(),
                     Note.GetNote(controller.lastNote, controller.lastOctave).ToString(),
