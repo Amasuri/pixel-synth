@@ -40,6 +40,10 @@ namespace PixelSynth.Code.Controller
                 soundDriver.SwitchPresetTo(Preset.DefaultWave);
             else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
                 soundDriver.SwitchPresetTo(Preset.SoftReverbClap);
+            else if (keys.IsKeyDown(Keys.D3) && oldKeys.IsKeyUp(Keys.D3))
+                soundDriver.SwitchPresetTo(Preset.MajorChord);
+            else if (keys.IsKeyDown(Keys.D4) && oldKeys.IsKeyUp(Keys.D4))
+                soundDriver.SwitchPresetTo(Preset.MinorChord);
         }
 
         private void PlayNotes(SoundDriver soundDriver)

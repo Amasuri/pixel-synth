@@ -18,6 +18,8 @@ namespace PixelSynth.Code
         {
             DefaultWave,
             SoftReverbClap,
+            MajorChord,
+            MinorChord,
         }
 
         public BasicWave CurrentBaseWave { get; private set; }
@@ -63,8 +65,8 @@ namespace PixelSynth.Code
 
         public void PlayPacket(Note.Type note, int octave)
         {
-            GetBasicPacketFromOscillator(note, octave);
-            ModifyGeneratedPacket();
+            GetBasicPacketFromOscillator(note, octave, ref packet1);
+            ModifyGeneratedPacket(note, octave);
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
             packetPlayer.Stream.Seek(0, SeekOrigin.Begin);
@@ -135,7 +137,7 @@ namespace PixelSynth.Code
             stream.Close();
         }
 
-        private void GetBasicPacketFromOscillator(Note.Type note, int octave)
+        private void GetBasicPacketFromOscillator(Note.Type note, int octave, ref double[] packet)
         {
             IOscillator Oscillator = sineOscillator;
 
@@ -146,20 +148,42 @@ namespace PixelSynth.Code
 
             Oscillator.SetFrequency(Note.GetNote(note, octave));
 
-            packet1 = new double[samplesPerSecond];
+            packet = new double[samplesPerSecond];
             for (int i = 0; i < samplesPerSecond; i++)
             {
-                packet1[i] = Oscillator.GetNext(i);
+                packet[i] = Oscillator.GetNext(i);
             }
         }
 
-        private void ModifyGeneratedPacket()
+        private void ModifyGeneratedPacket(Note.Type note, int octave)
         {
             if (CurrentPreset == Preset.SoftReverbClap)
             {
                 packet1 = ElementaryEffect.BitDecimator(packet1);
                 packet1 = ElementaryEffect.BitMediator(packet1);
                 packet1 = ElementaryEffect.BitHyperbolicCut(packet1);
+            }
+
+            if(CurrentPreset == Preset.MajorChord)
+            {
+                double[] supportPacket1 = new double[samplesPerSecond];
+                GetBasicPacketFromOscillator(note + 4, 4, ref supportPacket1);
+
+                double[] supportPacket2 = new double[samplesPerSecond];
+                GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+
+                packet1 = ElementaryEffect.BitChord(packet1, supportPacket1, supportPacket2);
+            }
+
+            if (CurrentPreset == Preset.MinorChord)
+            {
+                double[] supportPacket1 = new double[samplesPerSecond];
+                GetBasicPacketFromOscillator(note + 3, 4, ref supportPacket1);
+
+                double[] supportPacket2 = new double[samplesPerSecond];
+                GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+
+                packet1 = ElementaryEffect.BitChord(packet1, supportPacket1, supportPacket2);
             }
         }
     }

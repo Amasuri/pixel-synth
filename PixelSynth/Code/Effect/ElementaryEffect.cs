@@ -40,5 +40,18 @@
 
             return npacket;
         }
+
+        static public double[] BitChord(double[] packet1, double[] packet2, double[] packet3)
+        {
+            double[] npacket = (double[])packet1.Clone();
+
+            for (int i = 0; i < packet1.Length; i++)
+            {
+                npacket[i] += packet2[i] + packet3[i];
+                npacket[i] /= 2;
+            }
+
+            return npacket;
+        }
     }
 }
