@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace PixelSynth.Code.Occilator
+namespace PixelSynth.Code.Oscillator
 {
-    public class SineOccilator : IOccilator
+    public class SineOscillator : IOscillator
     {
         private double _radiansPerCircle = Math.PI * 2;
         private double _currentFrequency = 2000;
         private double _sampleRate = 44100;
 
-        public SineOccilator(double sampleRate)
+        public SineOscillator(double sampleRate)
         {
             _sampleRate = sampleRate;
         }

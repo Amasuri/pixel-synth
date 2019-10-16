@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PixelSynth.Code.Occilator
+namespace PixelSynth.Code.Oscillator
 {
-    internal interface IOccilator
+    internal interface IOscillator
     {
         double GetNext(int sampleNumberInSecond);
 

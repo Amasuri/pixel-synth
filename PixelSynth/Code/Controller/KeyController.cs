@@ -19,12 +19,12 @@ namespace PixelSynth.Code.Controller
 
             PlayNotes(soundDriver);
             SwitchPresets(soundDriver);
-            SwitchOccilators(soundDriver);
+            SwitchOscillators(soundDriver);
 
             oldKeys = keys;
         }
 
-        private void SwitchOccilators(SoundDriver soundDriver)
+        private void SwitchOscillators(SoundDriver soundDriver)
         {
             if (keys.IsKeyDown(Keys.NumPad1) && oldKeys.IsKeyUp(Keys.NumPad1))
                 soundDriver.SwitchBaseWaveTo(BasicWave.Sine);

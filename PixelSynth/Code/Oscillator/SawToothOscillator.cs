@@ -1,14 +1,15 @@
 ﻿using System;
 
-namespace PixelSynth.Code.Occilator
+namespace PixelSynth.Code.Oscillator
 {
-    public class SquareOccilator : IOccilator
+    public class SawToothOscillator : IOscillator
     {
         private double _radiansPerCircle = Math.PI * 2;
         private double _currentFrequency = 2000;
         private double _sampleRate = 44100;
+        private double _detune = 0.0;
 
-        public SquareOccilator(double sampleRate)
+        public SawToothOscillator(double sampleRate)
         {
             _sampleRate = sampleRate;
         }
@@ -22,18 +23,14 @@ namespace PixelSynth.Code.Occilator
         {
             double samplesPerOccilation = (_sampleRate / _currentFrequency);
             double depthIntoOccilations = (sampleNumberInSecond % samplesPerOccilation) / samplesPerOccilation;
-
             double sinPart = Math.Sin(depthIntoOccilations * _radiansPerCircle);
-            if (depthIntoOccilations > 0.5)
-            {
-                sinPart += 0.5;
-            }
-            else
-            {
-                sinPart -= 0.5;
-            }
-
+            sinPart += (depthIntoOccilations - 0.5);
             return sinPart;
+        }
+
+        public void SetDetune(double detune)
+        {
+            _detune = detune;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using PixelSynth.Code.Effect;
-using PixelSynth.Code.Occilator;
+using PixelSynth.Code.Oscillator;
 using PixelSynth.Code.Sound;
 using System;
 using System.Collections.Generic;
@@ -33,9 +33,9 @@ namespace PixelSynth.Code
 
         private SoundPlayer packetPlayer;
 
-        private SineOccilator sineOccilator;
-        private SquareOccilator squareOccilator;
-        private SawToothOccilator sawToothOccilator;
+        private SineOscillator sineOscillator;
+        private SquareOscillator squareOscillator;
+        private SawToothOscillator sawToothOscillator;
 
         private const int samplesPerSecond = 44100;
 
@@ -43,9 +43,9 @@ namespace PixelSynth.Code
         {
             packetPlayer = new SoundPlayer();
 
-            sineOccilator = new SineOccilator(samplesPerSecond);
-            squareOccilator = new SquareOccilator(samplesPerSecond);
-            sawToothOccilator = new SawToothOccilator(samplesPerSecond);
+            sineOscillator = new SineOscillator(samplesPerSecond);
+            squareOscillator = new SquareOscillator(samplesPerSecond);
+            sawToothOscillator = new SawToothOscillator(samplesPerSecond);
 
             CurrentPreset = Preset.DefaultWave;
             CurrentBaseWave = BasicWave.Sine;
@@ -63,7 +63,7 @@ namespace PixelSynth.Code
 
         public void PlayPacket(Note.Type note, int octave)
         {
-            GetBasicPacketFromOccilator(note, octave);
+            GetBasicPacketFromOscillator(note, octave);
             ModifyGeneratedPacket();
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
@@ -135,21 +135,21 @@ namespace PixelSynth.Code
             stream.Close();
         }
 
-        private void GetBasicPacketFromOccilator(Note.Type note, int octave)
+        private void GetBasicPacketFromOscillator(Note.Type note, int octave)
         {
-            IOccilator occilator = sineOccilator;
+            IOscillator Oscillator = sineOscillator;
 
             if (CurrentBaseWave == BasicWave.Sawtooth)
-                occilator = sawToothOccilator;
+                Oscillator = sawToothOscillator;
             if (CurrentBaseWave == BasicWave.Square)
-                occilator = squareOccilator;
+                Oscillator = squareOscillator;
 
-            occilator.SetFrequency(Note.GetNote(note, octave));
+            Oscillator.SetFrequency(Note.GetNote(note, octave));
 
             packet1 = new double[samplesPerSecond];
             for (int i = 0; i < samplesPerSecond; i++)
             {
-                packet1[i] = occilator.GetNext(i);
+                packet1[i] = Oscillator.GetNext(i);
             }
         }
 
