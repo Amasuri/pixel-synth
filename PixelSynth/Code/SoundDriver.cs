@@ -16,29 +16,49 @@ namespace PixelSynth.Code
         public Preset CurrentPreset { get; private set; }
         public enum Preset
         {
-            Sinusoidal,
+            DefaultWave,
             SoftReverbClap,
+        }
+
+        public BasicWave CurrentBaseWave { get; private set; }
+        public enum BasicWave
+        {
+            Sine,
+            Square,
+            Sawtooth,
         }
 
         private double[] packet1;
         private double[] packet2;
 
-        private SoundPlayer player;
+        private SoundPlayer packetPlayer;
+
         private SineOccilator sineOccilator;
+        private SquareOccilator squareOccilator;
+        private SawToothOccilator sawToothOccilator;
 
         private const int samplesPerSecond = 44100;
 
         public SoundDriver()
         {
-            player = new SoundPlayer();
-            sineOccilator = new SineOccilator(samplesPerSecond);
+            packetPlayer = new SoundPlayer();
 
-            CurrentPreset = Preset.Sinusoidal;
+            sineOccilator = new SineOccilator(samplesPerSecond);
+            squareOccilator = new SquareOccilator(samplesPerSecond);
+            sawToothOccilator = new SawToothOccilator(samplesPerSecond);
+
+            CurrentPreset = Preset.DefaultWave;
+            CurrentBaseWave = BasicWave.Sine;
         }
 
         public void SwitchPresetTo(Preset preset)
         {
             CurrentPreset = preset;
+        }
+
+        public void SwitchBaseWaveTo(BasicWave wave)
+        {
+            CurrentBaseWave = wave;
         }
 
         public void PlayPacket(Note.Type note, int octave)
@@ -47,8 +67,8 @@ namespace PixelSynth.Code
             ModifyGeneratedPacket();
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
-            player.Stream.Seek(0, SeekOrigin.Begin);
-            player.Play();
+            packetPlayer.Stream.Seek(0, SeekOrigin.Begin);
+            packetPlayer.Play();
         }
 
         /// <summary>
@@ -102,10 +122,10 @@ namespace PixelSynth.Code
                 stream.WriteByte((byte)(sl >> 8));
             }
 
-            player.Stream = new MemoryStream();
+            packetPlayer.Stream = new MemoryStream();
 
             stream.Position = 0;
-            stream.CopyTo(player.Stream);
+            stream.CopyTo(packetPlayer.Stream);
 
             //FileStream fstream = new FileStream("test.wav", FileMode.Create);
             //stream.Position = 0;
@@ -117,12 +137,19 @@ namespace PixelSynth.Code
 
         private void GetBasicPacketFromOccilator(Note.Type note, int octave)
         {
-            packet1 = new double[samplesPerSecond];
-            sineOccilator.SetFrequency(Note.GetNote(note, octave));
+            IOccilator occilator = sineOccilator;
 
+            if (CurrentBaseWave == BasicWave.Sawtooth)
+                occilator = sawToothOccilator;
+            if (CurrentBaseWave == BasicWave.Square)
+                occilator = squareOccilator;
+
+            occilator.SetFrequency(Note.GetNote(note, octave));
+
+            packet1 = new double[samplesPerSecond];
             for (int i = 0; i < samplesPerSecond; i++)
             {
-                packet1[i] = sineOccilator.GetNext(i);
+                packet1[i] = occilator.GetNext(i);
             }
         }
 

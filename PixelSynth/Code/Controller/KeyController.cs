@@ -19,14 +19,25 @@ namespace PixelSynth.Code.Controller
 
             PlayNotes(soundDriver);
             SwitchPresets(soundDriver);
+            SwitchOccilators(soundDriver);
 
             oldKeys = keys;
+        }
+
+        private void SwitchOccilators(SoundDriver soundDriver)
+        {
+            if (keys.IsKeyDown(Keys.NumPad1) && oldKeys.IsKeyUp(Keys.NumPad1))
+                soundDriver.SwitchBaseWaveTo(BasicWave.Sine);
+            else if (keys.IsKeyDown(Keys.NumPad2) && oldKeys.IsKeyUp(Keys.NumPad2))
+                soundDriver.SwitchBaseWaveTo(BasicWave.Square);
+            else if (keys.IsKeyDown(Keys.NumPad3) && oldKeys.IsKeyUp(Keys.NumPad3))
+                soundDriver.SwitchBaseWaveTo(BasicWave.Sawtooth);
         }
 
         private void SwitchPresets(SoundDriver soundDriver)
         {
             if (keys.IsKeyDown(Keys.D1) && oldKeys.IsKeyUp(Keys.D1))
-                soundDriver.SwitchPresetTo(Preset.Sinusoidal);
+                soundDriver.SwitchPresetTo(Preset.DefaultWave);
             else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
                 soundDriver.SwitchPresetTo(Preset.SoftReverbClap);
         }

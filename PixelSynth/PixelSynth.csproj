@@ -51,7 +51,9 @@
     <Compile Include="Code\Graphics\Types\Pixel.cs" />
     <Compile Include="Code\mainLoop.cs" />
     <Compile Include="Code\Occilator\IOccilator.cs" />
+    <Compile Include="Code\Occilator\SawToothOccilator.cs" />
     <Compile Include="Code\Occilator\SineOccilator.cs" />
+    <Compile Include="Code\Occilator\SquareOccilator.cs" />
     <Compile Include="Code\Program.cs" />
     <Compile Include="Code\SoundDriver.cs" />
     <Compile Include="Code\Sound\Note.cs" />

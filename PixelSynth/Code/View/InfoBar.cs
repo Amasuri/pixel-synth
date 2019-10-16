@@ -19,11 +19,12 @@ namespace PixelSynth.Code.View
         {
             string drawn = String.Format
                 (
-                    "Note: {0}\nOctave: {1}\nFrequency: {2}\nPreset: {3}",
+                    "Note: {0}\nOctave: {1}\nFrequency: {2}\nPreset: {3}\nWave: {4}",
                     controller.lastNote.ToString(),
                     controller.lastOctave.ToString(),
                     Note.GetNote(controller.lastNote, controller.lastOctave).ToString(),
-                    soundDriver.CurrentPreset.ToString()
+                    soundDriver.CurrentPreset.ToString(),
+                    soundDriver.CurrentBaseWave.ToString()
                 );
 
             spriteBatch.DrawString(font, drawn, Vector2.Zero, Color.Black);
