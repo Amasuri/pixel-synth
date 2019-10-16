@@ -166,22 +166,42 @@ namespace PixelSynth.Code
 
             if(CurrentPreset == Preset.MajorChord)
             {
+                //2nd chord note
                 double[] supportPacket1 = new double[samplesPerSecond];
-                GetBasicPacketFromOscillator(note + 4, 4, ref supportPacket1);
 
+                if(note + 4 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 4 - 11, 5, ref supportPacket1);
+                else
+                    GetBasicPacketFromOscillator(note + 4, 4, ref supportPacket1);
+
+                //3rd chord note
                 double[] supportPacket2 = new double[samplesPerSecond];
-                GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+
+                if (note + 7 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 7 - 11, 5, ref supportPacket2);
+                else
+                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
 
                 packet1 = ElementaryEffect.BitChord(packet1, supportPacket1, supportPacket2);
             }
 
             if (CurrentPreset == Preset.MinorChord)
             {
+                //2nd chord note
                 double[] supportPacket1 = new double[samplesPerSecond];
-                GetBasicPacketFromOscillator(note + 3, 4, ref supportPacket1);
 
+                if (note + 3 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 3 - 11, 5, ref supportPacket1);
+                else
+                    GetBasicPacketFromOscillator(note + 3, 4, ref supportPacket1);
+
+                //3rd chord note
                 double[] supportPacket2 = new double[samplesPerSecond];
-                GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+
+                if (note + 7 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 7 - 11, 5, ref supportPacket2);
+                else
+                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
 
                 packet1 = ElementaryEffect.BitChord(packet1, supportPacket1, supportPacket2);
             }
