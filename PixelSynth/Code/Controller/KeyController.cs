@@ -18,11 +18,20 @@ namespace PixelSynth.Code.Controller
             keys = Keyboard.GetState();
 
             CheckChordAlterators(soundDriver);
+            CheckADSR(soundDriver);
             PlayNotes(soundDriver);
             SwitchPresets(soundDriver);
             SwitchOscillators(soundDriver);
 
             oldKeys = keys;
+        }
+
+        private void CheckADSR(SoundDriver soundDriver)
+        {
+            if (keys.IsKeyDown(Keys.NumPad5))
+                soundDriver.SwitchADSRTo(ADSRMode.NoADSR);
+            else if (keys.IsKeyDown(Keys.NumPad7))
+                soundDriver.SwitchADSRTo(ADSRMode.Treble);
         }
 
         private void CheckChordAlterators(SoundDriver soundDriver)

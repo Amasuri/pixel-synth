@@ -13,6 +13,13 @@ namespace PixelSynth.Code
 {
     public class SoundDriver
     {
+        public ADSRMode CurrentADSRMode { get; private set; }
+        public enum ADSRMode
+        {
+            NoADSR,
+            Treble,
+        }
+
         public NoteMode CurrentNoteMode { get; private set; }
         public enum NoteMode
         {
@@ -57,6 +64,13 @@ namespace PixelSynth.Code
 
             CurrentPreset = Preset.DefaultWave;
             CurrentBaseWave = BasicWave.Sine;
+            CurrentNoteMode = NoteMode.Single;
+            CurrentADSRMode = ADSRMode.NoADSR;
+        }
+
+        public void SwitchADSRTo(ADSRMode mode)
+        {
+            CurrentADSRMode = mode;
         }
 
         public void SwitchNoteModeTo(NoteMode noteMode)
@@ -79,10 +93,17 @@ namespace PixelSynth.Code
             GetBasicPacketFromOscillator(note, octave, ref packet1);
             ModifyGeneratedPacket(note, octave);
             ChordifyPacketIfApplicable(note, octave);
+            ApplyADSR(note, octave);
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
             packetPlayer.Stream.Seek(0, SeekOrigin.Begin);
             packetPlayer.Play();
+        }
+
+        private void ApplyADSR(Note.Type note, int octave)
+        {
+            if(CurrentADSRMode == ADSRMode.Treble)
+                packet1 = ADSR.HardTreble(packet1);
         }
 
         private void ChordifyPacketIfApplicable(Note.Type note, int octave)

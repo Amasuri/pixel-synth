@@ -59,6 +59,7 @@
     <Compile Include="Code\Program.cs" />
     <Compile Include="Code\SoundDriver.cs" />
     <Compile Include="Code\Sound\Note.cs" />
+    <Compile Include="Code\Utils\Maths.cs" />
     <Compile Include="Code\Utils\Text\TextUtils.cs" />
     <Compile Include="Code\View\InfoBar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
