@@ -17,11 +17,22 @@ namespace PixelSynth.Code.Controller
         {
             keys = Keyboard.GetState();
 
+            CheckChordAlterators(soundDriver);
             PlayNotes(soundDriver);
             SwitchPresets(soundDriver);
             SwitchOscillators(soundDriver);
 
             oldKeys = keys;
+        }
+
+        private void CheckChordAlterators(SoundDriver soundDriver)
+        {
+            if (keys.IsKeyDown(Keys.NumPad4))
+                soundDriver.SwitchNoteModeTo(NoteMode.MajorChord);
+            else if (keys.IsKeyDown(Keys.NumPad6))
+                soundDriver.SwitchNoteModeTo(NoteMode.MinorChord);
+            else
+                soundDriver.SwitchNoteModeTo(NoteMode.Single);
         }
 
         private void SwitchOscillators(SoundDriver soundDriver)
@@ -40,10 +51,6 @@ namespace PixelSynth.Code.Controller
                 soundDriver.SwitchPresetTo(Preset.DefaultWave);
             else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
                 soundDriver.SwitchPresetTo(Preset.SoftReverbClap);
-            else if (keys.IsKeyDown(Keys.D3) && oldKeys.IsKeyUp(Keys.D3))
-                soundDriver.SwitchPresetTo(Preset.MajorChord);
-            else if (keys.IsKeyDown(Keys.D4) && oldKeys.IsKeyUp(Keys.D4))
-                soundDriver.SwitchPresetTo(Preset.MinorChord);
         }
 
         private void PlayNotes(SoundDriver soundDriver)

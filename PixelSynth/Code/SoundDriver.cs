@@ -13,13 +13,19 @@ namespace PixelSynth.Code
 {
     public class SoundDriver
     {
+        public NoteMode CurrentNoteMode { get; private set; }
+        public enum NoteMode
+        {
+            Single,
+            MajorChord,
+            MinorChord,
+        }
+
         public Preset CurrentPreset { get; private set; }
         public enum Preset
         {
             DefaultWave,
             SoftReverbClap,
-            MajorChord,
-            MinorChord,
         }
 
         public BasicWave CurrentBaseWave { get; private set; }
@@ -53,6 +59,11 @@ namespace PixelSynth.Code
             CurrentBaseWave = BasicWave.Sine;
         }
 
+        public void SwitchNoteModeTo(NoteMode noteMode)
+        {
+            CurrentNoteMode = noteMode;
+        }
+
         public void SwitchPresetTo(Preset preset)
         {
             CurrentPreset = preset;
@@ -67,10 +78,56 @@ namespace PixelSynth.Code
         {
             GetBasicPacketFromOscillator(note, octave, ref packet1);
             ModifyGeneratedPacket(note, octave);
+            ChordifyPacketIfApplicable(note, octave);
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
             packetPlayer.Stream.Seek(0, SeekOrigin.Begin);
             packetPlayer.Play();
+        }
+
+        private void ChordifyPacketIfApplicable(Note.Type note, int octave)
+        {
+            if (CurrentNoteMode == NoteMode.MajorChord)
+            {
+                //2nd chord note
+                double[] supportPacket1 = new double[samplesPerSecond];
+
+                if (note + 4 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 4 - 12, 5, ref supportPacket1);
+                else
+                    GetBasicPacketFromOscillator(note + 4, 4, ref supportPacket1);
+
+                //3rd chord note
+                double[] supportPacket2 = new double[samplesPerSecond];
+
+                if (note + 7 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 7 - 12, 5, ref supportPacket2);
+                else
+                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+
+                packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
+            }
+
+            if (CurrentNoteMode == NoteMode.MinorChord)
+            {
+                //2nd chord note
+                double[] supportPacket1 = new double[samplesPerSecond];
+
+                if (note + 3 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 3 - 12, 5, ref supportPacket1);
+                else
+                    GetBasicPacketFromOscillator(note + 3, 4, ref supportPacket1);
+
+                //3rd chord note
+                double[] supportPacket2 = new double[samplesPerSecond];
+
+                if (note + 7 > Note.Type.GSharp)
+                    GetBasicPacketFromOscillator(note + 7 - 12, 5, ref supportPacket2);
+                else
+                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+
+                packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
+            }
         }
 
         /// <summary>
@@ -162,48 +219,6 @@ namespace PixelSynth.Code
                 packet1 = ElementaryEffect.BitDecimator(packet1);
                 packet1 = ElementaryEffect.BitMediator(packet1);
                 packet1 = ElementaryEffect.BitHyperbolicCut(packet1);
-            }
-
-            if(CurrentPreset == Preset.MajorChord)
-            {
-                //2nd chord note
-                double[] supportPacket1 = new double[samplesPerSecond];
-
-                if(note + 4 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 4 - 12, 5, ref supportPacket1);
-                else
-                    GetBasicPacketFromOscillator(note + 4, 4, ref supportPacket1);
-
-                //3rd chord note
-                double[] supportPacket2 = new double[samplesPerSecond];
-
-                if (note + 7 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 7 - 12, 5, ref supportPacket2);
-                else
-                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
-
-                packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
-            }
-
-            if (CurrentPreset == Preset.MinorChord)
-            {
-                //2nd chord note
-                double[] supportPacket1 = new double[samplesPerSecond];
-
-                if (note + 3 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 3 - 12, 5, ref supportPacket1);
-                else
-                    GetBasicPacketFromOscillator(note + 3, 4, ref supportPacket1);
-
-                //3rd chord note
-                double[] supportPacket2 = new double[samplesPerSecond];
-
-                if (note + 7 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 7 - 12, 5, ref supportPacket2);
-                else
-                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
-
-                packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
             }
         }
     }

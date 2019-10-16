@@ -19,12 +19,13 @@ namespace PixelSynth.Code.View
         {
             string noteInfo = String.Format
                 (
-                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\nPreset: {3}\nWave: {4}",
+                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\nPreset: {3}\nWave: {4}\nNoteType: {5}",
                     controller.lastNote.ToString(),
                     controller.lastOctave.ToString(),
                     Note.GetNote(controller.lastNote, controller.lastOctave).ToString(),
                     soundDriver.CurrentPreset.ToString(),
-                    soundDriver.CurrentBaseWave.ToString()
+                    soundDriver.CurrentBaseWave.ToString(),
+                    soundDriver.CurrentNoteMode.ToString()
                 );
 
             spriteBatch.DrawString(font, noteInfo, Vector2.Zero, Color.Black);
@@ -32,7 +33,8 @@ namespace PixelSynth.Code.View
             string tooltip =
                 "LShift - RShift: play\n" +
                 "1 - 9: select preset\n" +
-                "Num1 - Num3: wave\n";
+                "Num1 - Num3: wave\n" +
+                "Hold Num4/Num6: chord";
 
             spriteBatch.DrawString(font, tooltip, new Vector2(PixelSynth.ScaledWindowSize.X - font.MeasureString(tooltip).X, 0), Color.Black);
         }
