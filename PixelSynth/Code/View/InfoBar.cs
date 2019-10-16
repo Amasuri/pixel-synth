@@ -37,7 +37,8 @@ namespace PixelSynth.Code.View
                 "1 - 9: select preset\n" +
                 "Num1 - Num3: wave\n" +
                 "Hold Num4/Num6: chord\n" +
-                "Num5/7/8/9: ADSR";
+                "Num5/7/8/9: ADSR\n" +
+                "-/=: Switch Obertonator";
 
             spriteBatch.DrawString(font, tooltip, new Vector2(PixelSynth.ScaledWindowSize.X - font.MeasureString(tooltip).X, 0), Color.Black);
         }
