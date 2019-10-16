@@ -10,6 +10,9 @@ namespace PixelSynth.Code
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        static public Vector2 UnscaledWindowSize => new Vector2(256, 194);
+        static public Vector2 ScaledWindowSize => UnscaledWindowSize * 3;
+
         private SoundDriver soundDriver;
         private KeyController controller;
 
@@ -19,6 +22,10 @@ namespace PixelSynth.Code
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            graphics.PreferredBackBufferWidth = (int)ScaledWindowSize.X;
+            graphics.PreferredBackBufferHeight = (int)ScaledWindowSize.Y;
+            graphics.ApplyChanges();
         }
 
         protected override void Initialize()

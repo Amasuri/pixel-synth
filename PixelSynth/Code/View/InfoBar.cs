@@ -17,7 +17,7 @@ namespace PixelSynth.Code.View
 
         public void Draw(SpriteBatch spriteBatch, KeyController controller, SoundDriver soundDriver)
         {
-            string drawn = String.Format
+            string noteInfo = String.Format
                 (
                     "Note: {0}\nOctave: {1}\nFrequency: {2}\nPreset: {3}\nWave: {4}",
                     controller.lastNote.ToString(),
@@ -27,7 +27,14 @@ namespace PixelSynth.Code.View
                     soundDriver.CurrentBaseWave.ToString()
                 );
 
-            spriteBatch.DrawString(font, drawn, Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(font, noteInfo, Vector2.Zero, Color.Black);
+
+            string tooltip =
+                "LShift - RShift: play\n" +
+                "1 - 9: select preset\n" +
+                "Num1 - Num3: wave\n";
+
+            spriteBatch.DrawString(font, tooltip, new Vector2(PixelSynth.ScaledWindowSize.X - font.MeasureString(tooltip).X, 0), Color.Black);
         }
     }
 }
