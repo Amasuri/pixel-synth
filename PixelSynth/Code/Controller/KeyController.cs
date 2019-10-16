@@ -42,6 +42,8 @@ namespace PixelSynth.Code.Controller
                 soundDriver.SwitchADSRTo(ADSRMode.NoADSR);
             else if (keys.IsKeyDown(Keys.NumPad7))
                 soundDriver.SwitchADSRTo(ADSRMode.Treble);
+            else if (keys.IsKeyDown(Keys.NumPad8))
+                soundDriver.SwitchADSRTo(ADSRMode.SoftTreble);
         }
 
         private void CheckChordAlterators(SoundDriver soundDriver)

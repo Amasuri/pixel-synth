@@ -25,6 +25,7 @@ namespace PixelSynth.Code
         {
             NoADSR,
             Treble,
+            SoftTreble,
         }
 
         public NoteMode CurrentNoteMode { get; private set; }
@@ -133,6 +134,9 @@ namespace PixelSynth.Code
         {
             if(CurrentADSRMode == ADSRMode.Treble)
                 packet1 = ADSR.HardTreble(packet1);
+
+            if (CurrentADSRMode == ADSRMode.SoftTreble)
+                packet1 = ADSR.SoftTreble(packet1);
         }
 
         private void ChordifyPacketIfApplicable(Note.Type note, int octave)
