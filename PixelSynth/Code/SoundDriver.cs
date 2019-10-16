@@ -25,7 +25,7 @@ namespace PixelSynth.Code
         {
             NoADSR,
             Treble,
-            SoftTreble,
+            Mellow,
             Attack,
         }
 
@@ -136,8 +136,8 @@ namespace PixelSynth.Code
             if(CurrentADSRMode == ADSRMode.Treble)
                 packet1 = ADSR.HardTreble(packet1);
 
-            if (CurrentADSRMode == ADSRMode.SoftTreble)
-                packet1 = ADSR.SoftTreble(packet1);
+            if (CurrentADSRMode == ADSRMode.Mellow)
+                packet1 = ADSR.Mellow(packet1);
 
             if (CurrentADSRMode == ADSRMode.Attack)
                 packet1 = ADSR.Attack(packet1);

@@ -17,9 +17,10 @@ namespace PixelSynth.Code.Effect
             0.5d, 1.0d, 0.8d, 0.4d, 0.2d, 0.1d, 0.05d, 0.025d, 0.001d, 0.0d
         };
 
-        private static readonly double[] PresetSoft = new double[ADSRLength]
+        private static readonly double[] PresetSoft = new double[ADSRLength * 2]
         {
-            0.33d, 0.66d, 0.88d, 1.0d, 0.9d, 0.7d, 0.05d, 0.3d, 0.1d, 0.0d
+            0.33d, 0.45d, 0.66d, 0.78d, 1.0d, 0.88d,  0.9d, 0.8d, 0.7d, 0.6d,
+            0.5d, 0.4d, 0.3d, 0.2d, 0.1d, 0.0d, 0.0d, 0.0d, 0.0d, 0.0d,
         };
 
         private static readonly double[] PresetAttack = new double[ADSRLength]
@@ -42,14 +43,14 @@ namespace PixelSynth.Code.Effect
             return npacket;
         }
 
-        static public double[] SoftTreble(double[] packet)
+        static public double[] Mellow(double[] packet)
         {
             double[] npacket = (double[])packet.Clone();
 
             //Apply ADSR
             for (int iPacket = 0; iPacket < packet.Length; iPacket++)
             {
-                int iCurve = Maths.Map(iPacket, 0, packet.Length - 1, 0, ADSRLength - 1);
+                int iCurve = Maths.Map(iPacket, 0, packet.Length - 1, 0, ADSRLength * 2 - 1);
 
                 npacket[iPacket] *= PresetSoft[iCurve];
             }

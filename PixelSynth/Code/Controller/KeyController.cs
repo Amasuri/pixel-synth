@@ -43,7 +43,7 @@ namespace PixelSynth.Code.Controller
             else if (keys.IsKeyDown(Keys.NumPad7))
                 soundDriver.SwitchADSRTo(ADSRMode.Treble);
             else if (keys.IsKeyDown(Keys.NumPad8))
-                soundDriver.SwitchADSRTo(ADSRMode.SoftTreble);
+                soundDriver.SwitchADSRTo(ADSRMode.Mellow);
             else if (keys.IsKeyDown(Keys.NumPad9))
                 soundDriver.SwitchADSRTo(ADSRMode.Attack);
         }
