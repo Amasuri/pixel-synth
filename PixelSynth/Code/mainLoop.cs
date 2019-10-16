@@ -17,6 +17,7 @@ namespace PixelSynth.Code
         private KeyController controller;
 
         private InfoBar infoBar;
+        private SynthesizerView synthesizerView;
 
         public PixelSynth()
         {
@@ -41,6 +42,7 @@ namespace PixelSynth.Code
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             infoBar = new InfoBar(this);
+            synthesizerView = new SynthesizerView(this);
         }
 
         protected override void Update(GameTime gameTime)
@@ -56,6 +58,7 @@ namespace PixelSynth.Code
 
             spriteBatch.Begin();
 
+            synthesizerView.Draw(spriteBatch, controller, soundDriver);
             infoBar.Draw(spriteBatch, controller, soundDriver);
 
             spriteBatch.End();
