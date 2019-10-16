@@ -23,9 +23,15 @@ namespace PixelSynth.Code.Effect
             double[] harmonics3 = new double[sampleRate];
             PutWaveToSample(oscillator, fundamentalFreq * 4, sampleRate, harmonics3);
 
+            double[] harmonics4 = new double[sampleRate];
+            PutWaveToSample(oscillator, fundamentalFreq * 5, sampleRate, harmonics3);
+
+            double[] harmonics5 = new double[sampleRate];
+            PutWaveToSample(oscillator, fundamentalFreq * 7, sampleRate, harmonics3);
+
             for (int i = 0; i < npacket.Length; i++)
             {
-                npacket[i] += harmonics1[i] * 0.8f + harmonics2[i] * 0.6f + harmonics3[i] * 0.4f;
+                npacket[i] += harmonics1[i] * 0.77f + harmonics2[i] * 0.66f + harmonics3[i] * 0.55f + harmonics4[i] * 0.44f + harmonics5[i] * 0.33f;
             }
 
             return npacket;
