@@ -19,14 +19,15 @@ namespace PixelSynth.Code.View
         {
             string noteInfo = String.Format
                 (
-                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\n\nPreset: {3}\nWave: {4}\nNoteType: {5}\nADSR: {6}",
+                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\n\nPreset: {3}\nWave: {4}\nNoteType: {5}\nADSR: {6}\nObertonator: {7}",
                     controller.lastNote.ToString(),
                     controller.lastOctave.ToString(),
                     Note.GetNote(controller.lastNote, controller.lastOctave).ToString(),
                     soundDriver.CurrentPreset.ToString(),
                     soundDriver.CurrentBaseWave.ToString(),
                     soundDriver.CurrentNoteMode.ToString(),
-                    soundDriver.CurrentADSRMode.ToString()
+                    soundDriver.CurrentADSRMode.ToString(),
+                    soundDriver.CurrentObertonator.ToString()
                 );
 
             spriteBatch.DrawString(font, noteInfo, Vector2.Zero, Color.Black);

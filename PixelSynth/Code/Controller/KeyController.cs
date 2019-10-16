@@ -19,11 +19,21 @@ namespace PixelSynth.Code.Controller
 
             CheckChordAlterators(soundDriver);
             CheckADSR(soundDriver);
+            CheckObertonator(soundDriver);
             PlayNotes(soundDriver);
             SwitchPresets(soundDriver);
             SwitchOscillators(soundDriver);
 
             oldKeys = keys;
+        }
+
+        private void CheckObertonator(SoundDriver soundDriver)
+        {
+            if (keys.IsKeyDown(Keys.OemPlus) && oldKeys.IsKeyUp(Keys.OemPlus))
+                soundDriver.SeekObertonator(+1);
+
+            if (keys.IsKeyDown(Keys.OemMinus) && oldKeys.IsKeyUp(Keys.OemMinus))
+                soundDriver.SeekObertonator(-1);
         }
 
         private void CheckADSR(SoundDriver soundDriver)

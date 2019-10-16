@@ -13,6 +13,13 @@ namespace PixelSynth.Code
 {
     public class SoundDriver
     {
+        public ObertoneMode CurrentObertonator { get; private set; }
+        public enum ObertoneMode
+        {
+            NoObertone,
+            Basic
+        }
+
         public ADSRMode CurrentADSRMode { get; private set; }
         public enum ADSRMode
         {
@@ -66,6 +73,18 @@ namespace PixelSynth.Code
             CurrentBaseWave = BasicWave.Sine;
             CurrentNoteMode = NoteMode.Single;
             CurrentADSRMode = ADSRMode.NoADSR;
+            CurrentObertonator = ObertoneMode.NoObertone;
+        }
+
+        public void SeekObertonator(int jump)
+        {
+            CurrentObertonator += jump;
+
+            if (CurrentObertonator < 0)
+                CurrentObertonator = ObertoneMode.NoObertone;
+
+            if (CurrentObertonator > ObertoneMode.Basic)
+                CurrentObertonator = ObertoneMode.Basic;
         }
 
         public void SwitchADSRTo(ADSRMode mode)
@@ -92,12 +111,22 @@ namespace PixelSynth.Code
         {
             GetBasicPacketFromOscillator(note, octave, ref packet1);
             ModifyGeneratedPacket(note, octave);
+            ApplyHarmonics(note, octave);
             ChordifyPacketIfApplicable(note, octave);
             ApplyADSR(note, octave);
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
             packetPlayer.Stream.Seek(0, SeekOrigin.Begin);
             packetPlayer.Play();
+        }
+
+        private void ApplyHarmonics(Note.Type note, int octave)
+        {
+            IOscillator Oscillator = null;
+            Oscillator = SelectOscillator(Oscillator);
+
+            if(CurrentObertonator == ObertoneMode.Basic)
+                packet1 = Obertonator.BasicHarmonics(packet1, Oscillator, Note.GetNote(note, octave), samplesPerSecond);
         }
 
         private void ApplyADSR(Note.Type note, int octave)
@@ -217,12 +246,8 @@ namespace PixelSynth.Code
 
         private void GetBasicPacketFromOscillator(Note.Type note, int octave, ref double[] packet)
         {
-            IOscillator Oscillator = sineOscillator;
-
-            if (CurrentBaseWave == BasicWave.Sawtooth)
-                Oscillator = sawToothOscillator;
-            if (CurrentBaseWave == BasicWave.Square)
-                Oscillator = squareOscillator;
+            IOscillator Oscillator = null;
+            Oscillator = SelectOscillator(Oscillator);
 
             Oscillator.SetFrequency(Note.GetNote(note, octave));
 
@@ -241,6 +266,17 @@ namespace PixelSynth.Code
                 packet1 = ElementaryEffect.BitMediator(packet1);
                 packet1 = ElementaryEffect.BitHyperbolicCut(packet1);
             }
+        }
+
+        private IOscillator SelectOscillator(IOscillator Oscillator)
+        {
+            Oscillator = sineOscillator;
+
+            if (CurrentBaseWave == BasicWave.Sawtooth)
+                Oscillator = sawToothOscillator;
+            if (CurrentBaseWave == BasicWave.Square)
+                Oscillator = squareOscillator;
+            return Oscillator;
         }
     }
 }

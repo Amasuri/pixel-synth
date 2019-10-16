@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PixelSynth.Code.Oscillator
 {
-    internal interface IOscillator
+    public interface IOscillator
     {
         double GetNext(int sampleNumberInSecond);
 
