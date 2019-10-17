@@ -1,4 +1,5 @@
 ﻿using PixelSynth.Code.Effect;
+using PixelSynth.Code.IO;
 using PixelSynth.Code.Oscillator;
 using PixelSynth.Code.Sound;
 using System;
@@ -109,6 +110,14 @@ namespace PixelSynth.Code
         public void SwitchBaseWaveTo(BasicWave wave)
         {
             CurrentBaseWave = wave;
+        }
+
+        public void SetFromCard(CardData card)
+        {
+            CurrentADSRMode = card.ADSR;
+            CurrentBaseWave = card.wave;
+            CurrentObertonator = card.obertone;
+            CurrentPreset = card.preset;
         }
 
         public void PlayPacket(Note.Type note, int octave)

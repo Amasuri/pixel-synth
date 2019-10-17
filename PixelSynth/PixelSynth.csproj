@@ -49,6 +49,8 @@
     <Compile Include="Code\Graphics\ADrawingClass.cs" />
     <Compile Include="Code\Graphics\Types\Animation.cs" />
     <Compile Include="Code\Graphics\Types\Pixel.cs" />
+    <Compile Include="Code\IO\CardData.cs" />
+    <Compile Include="Code\IO\CardReader.cs" />
     <Compile Include="Code\mainLoop.cs" />
     <Compile Include="Code\Oscillator\IOscillator.cs" />
     <Compile Include="Code\Oscillator\SawToothOscillator.cs" />
@@ -121,6 +123,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="preset\metal.card">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Code\Generator\" />
