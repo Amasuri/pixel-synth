@@ -52,6 +52,23 @@ namespace PixelSynth.Code.View
 
             //Chords
             DrawChordModifiers(spriteBatch, soundDriver, synthsPos + new Vector2(26, 228));
+
+            //Sliders must be drawn under layout.
+            DrawOctaveSliders(spriteBatch, controller, synthsPos + new Vector2(6, 75));
+        }
+
+        private void DrawOctaveSliders(SpriteBatch spriteBatch, KeyController controller, Vector2 pos)
+        {
+            Point startSeek;
+
+            startSeek = new Point(16 * (controller.CurrentHigherKeysOctave - 1), 6);
+            DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 0), PixelSynth.Scale, new Rectangle(startSeek, new Point(96, 6)));
+
+            startSeek = new Point(16 * (controller.CurrentMediumKeysOctave - 1), 6);
+            DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 63), PixelSynth.Scale, new Rectangle(startSeek, new Point(96, 6)));
+
+            startSeek = new Point(16 * (controller.CurrentLowerKeysOctave - 1), 6);
+            DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 126), PixelSynth.Scale, new Rectangle(startSeek, new Point(96, 6)));
         }
 
         private void DrawChordModifiers(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)

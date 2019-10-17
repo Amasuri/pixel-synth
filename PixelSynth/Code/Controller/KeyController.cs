@@ -13,7 +13,16 @@ namespace PixelSynth.Code.Controller
         private KeyboardState keys;
         private KeyboardState oldKeys;
 
-        private const int CurrentLowerKeysOctave = 4;
+        public int CurrentLowerKeysOctave { get; private set; }
+        public int CurrentMediumKeysOctave { get; private set; }
+        public int CurrentHigherKeysOctave { get; private set; }
+
+        public KeyController()
+        {
+            CurrentLowerKeysOctave = 3;
+            CurrentMediumKeysOctave = 4;
+            CurrentHigherKeysOctave = 5;
+        }
 
         public void Update(SoundDriver soundDriver)
         {
