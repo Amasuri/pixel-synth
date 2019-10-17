@@ -39,6 +39,28 @@ namespace PixelSynth.Code.View
 
             //ADSR
             DrawADSRPanel(spriteBatch, soundDriver, synthsPos + new Vector2(158, 66));
+
+            //Preset
+            DrawPresetPanel(spriteBatch, soundDriver, synthsPos + new Vector2(110, 66));
+        }
+
+        private void DrawPresetPanel(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (i != (int)soundDriver.CurrentPreset)
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 16 * i), PixelSynth.Scale, new Rectangle(new Point(19 * i, 148), new Point(18, 15)));
+                else
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 16 * i), PixelSynth.Scale, new Rectangle(new Point(19 * i, 164), new Point(18, 15)));
+            }
+
+            for (int i = 8; i < 16; i++)
+            {
+                if (i != (int)soundDriver.CurrentPreset)
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(20, 16 * i - 128), PixelSynth.Scale, new Rectangle(new Point(19 * i, 148), new Point(18, 15)));
+                else
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(20, 16 * i - 128), PixelSynth.Scale, new Rectangle(new Point(19 * i, 164), new Point(18, 15)));
+            }
         }
 
         private void DrawADSRPanel(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
