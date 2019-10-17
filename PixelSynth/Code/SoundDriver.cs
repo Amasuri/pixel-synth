@@ -151,17 +151,17 @@ namespace PixelSynth.Code
                 double[] supportPacket1 = new double[samplesPerSecond];
 
                 if (note + 4 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 4 - 12, 5, ref supportPacket1);
+                    GetBasicPacketFromOscillator(note + 4 - 12, octave + 1, ref supportPacket1);
                 else
-                    GetBasicPacketFromOscillator(note + 4, 4, ref supportPacket1);
+                    GetBasicPacketFromOscillator(note + 4, octave, ref supportPacket1);
 
                 //3rd chord note
                 double[] supportPacket2 = new double[samplesPerSecond];
 
                 if (note + 7 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 7 - 12, 5, ref supportPacket2);
+                    GetBasicPacketFromOscillator(note + 7 - 12, octave + 1, ref supportPacket2);
                 else
-                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+                    GetBasicPacketFromOscillator(note + 7, octave, ref supportPacket2);
 
                 packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
             }
@@ -172,17 +172,17 @@ namespace PixelSynth.Code
                 double[] supportPacket1 = new double[samplesPerSecond];
 
                 if (note + 3 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 3 - 12, 5, ref supportPacket1);
+                    GetBasicPacketFromOscillator(note + 3 - 12, octave + 1, ref supportPacket1);
                 else
-                    GetBasicPacketFromOscillator(note + 3, 4, ref supportPacket1);
+                    GetBasicPacketFromOscillator(note + 3, octave, ref supportPacket1);
 
                 //3rd chord note
                 double[] supportPacket2 = new double[samplesPerSecond];
 
                 if (note + 7 > Note.Type.GSharp)
-                    GetBasicPacketFromOscillator(note + 7 - 12, 5, ref supportPacket2);
+                    GetBasicPacketFromOscillator(note + 7 - 12, octave + 1, ref supportPacket2);
                 else
-                    GetBasicPacketFromOscillator(note + 7, 4, ref supportPacket2);
+                    GetBasicPacketFromOscillator(note + 7, octave, ref supportPacket2);
 
                 packet1 = ElementaryEffect.TriWaveAddition(packet1, supportPacket1, supportPacket2);
             }
