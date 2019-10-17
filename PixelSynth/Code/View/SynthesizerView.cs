@@ -49,6 +49,20 @@ namespace PixelSynth.Code.View
 
             //Screen
             DrawScreenInfo(spriteBatch, soundDriver, controller, synthsPos + new Vector2(6, 6));
+
+            //Chords
+            DrawChordModifiers(spriteBatch, soundDriver, synthsPos + new Vector2(26, 228));
+        }
+
+        private void DrawChordModifiers(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (i != (int)soundDriver.CurrentNoteMode - 1)
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(40 * i, 0), PixelSynth.Scale, new Rectangle(new Point(0, 258), new Point(12, 13)));
+                else
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(40 * i, 0), PixelSynth.Scale, new Rectangle(new Point(0, 244), new Point(12, 13)));
+            }
         }
 
         private void DrawScreenInfo(SpriteBatch spriteBatch, SoundDriver soundDriver, KeyController controller, Vector2 pos)
