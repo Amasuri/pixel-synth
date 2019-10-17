@@ -12,12 +12,16 @@ namespace PixelSynth.Code.View
 {
     public class SynthesizerView : ADrawingClass
     {
+        private readonly SpriteFont font;
+        private readonly Color fontColor = new Color(81, 196, 63);
+
         private readonly Texture2D baseSprite;
         private readonly Texture2D buttonTileset;
         private readonly Vector2 synthsPos;
 
         public SynthesizerView(Game game)
         {
+            font = game.Content.Load<SpriteFont>("res/font/PixelFont1");
             baseSprite = game.Content.Load<Texture2D>("res/image/base");
             buttonTileset = game.Content.Load<Texture2D>("res/image/buttons");
 
@@ -42,6 +46,22 @@ namespace PixelSynth.Code.View
 
             //Preset
             DrawPresetPanel(spriteBatch, soundDriver, synthsPos + new Vector2(110, 66));
+
+            //Screen
+            DrawScreenInfo(spriteBatch, soundDriver, controller, synthsPos + new Vector2(6, 6));
+        }
+
+        private void DrawScreenInfo(SpriteBatch spriteBatch, SoundDriver soundDriver, KeyController controller, Vector2 pos)
+        {
+            string note = String.Format
+                (
+                    "{0} {1}\n\n{2}",
+                    controller.lastNote.ToString(),
+                    controller.lastOctave.ToString(),
+                    soundDriver.CurrentObertonator.ToString()
+                ).Replace("Sharp ", "#");
+
+            spriteBatch.DrawString(font, note, (pos + new Vector2()) * PixelSynth.Scale, fontColor);
         }
 
         private void DrawPresetPanel(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
