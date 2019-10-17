@@ -163,7 +163,32 @@ namespace PixelSynth.Code.View
             DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(74, -1), PixelSynth.Scale, new Rectangle(new Point(0, 104), new Point(9, 21)));
             DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(87, -1), PixelSynth.Scale, new Rectangle(new Point(0, 104), new Point(9, 21)));
 
-            //Any pressed keys
+            //Any pressed keys on top of them
+            if(pressedTone == 0)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 0), PixelSynth.Scale, new Rectangle(new Point(19, 71), new Point(14, 32)));
+            if (pressedTone == 2)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(13, 0), PixelSynth.Scale, new Rectangle(new Point(34, 71), new Point(14, 32)));
+            if (pressedTone == 3)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(26, 0), PixelSynth.Scale, new Rectangle(new Point(19, 71), new Point(14, 32)));
+            if (pressedTone == 5)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(39, 0), PixelSynth.Scale, new Rectangle(new Point(49, 71), new Point(14, 32)));
+            if (pressedTone == 7)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(52, 0), PixelSynth.Scale, new Rectangle(new Point(34, 71), new Point(14, 32)));
+            if (pressedTone == 8)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(65, 0), PixelSynth.Scale, new Rectangle(new Point(19, 71), new Point(14, 32)));
+            if (pressedTone == 10)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(78, 0), PixelSynth.Scale, new Rectangle(new Point(0, 71), new Point(18, 32)));
+
+            if (pressedTone == 1)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(9, -1), PixelSynth.Scale, new Rectangle(new Point(0, 126), new Point(9, 21)));
+            if (pressedTone == 4)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(35, -1), PixelSynth.Scale, new Rectangle(new Point(0, 126), new Point(9, 21)));
+            if (pressedTone == 6)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(48, -1), PixelSynth.Scale, new Rectangle(new Point(0, 126), new Point(9, 21)));
+            if (pressedTone == 9)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(74, -1), PixelSynth.Scale, new Rectangle(new Point(0, 126), new Point(9, 21)));
+            if (pressedTone == 11)
+                DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(87, -1), PixelSynth.Scale, new Rectangle(new Point(0, 126), new Point(9, 21)));
         }
     }
 }
