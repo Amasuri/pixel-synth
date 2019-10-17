@@ -17,7 +17,8 @@ namespace PixelSynth.Code
         public enum ObertoneMode
         {
             NoObertone,
-            Basic
+            Basic,
+            Organ
         }
 
         public ADSRMode CurrentADSRMode { get; private set; }
@@ -85,8 +86,8 @@ namespace PixelSynth.Code
             if (CurrentObertonator < 0)
                 CurrentObertonator = ObertoneMode.NoObertone;
 
-            if (CurrentObertonator > ObertoneMode.Basic)
-                CurrentObertonator = ObertoneMode.Basic;
+            if (CurrentObertonator > ObertoneMode.Organ)
+                CurrentObertonator = ObertoneMode.Organ;
         }
 
         public void SwitchADSRTo(ADSRMode mode)
@@ -129,6 +130,9 @@ namespace PixelSynth.Code
 
             if(CurrentObertonator == ObertoneMode.Basic)
                 packet1 = Obertonator.BasicHarmonics(packet1, Oscillator, Note.GetNote(note, octave), samplesPerSecond);
+
+            if(CurrentObertonator == ObertoneMode.Organ)
+                packet1 = Obertonator.OrganHarmonics(packet1, Oscillator, Note.GetNote(note, octave), samplesPerSecond);
         }
 
         private void ApplyADSR(Note.Type note, int octave)
