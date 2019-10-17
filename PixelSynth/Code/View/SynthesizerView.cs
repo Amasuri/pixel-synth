@@ -34,9 +34,17 @@ namespace PixelSynth.Code.View
             DrawTexture(spriteBatch, baseSprite, synthsPos, PixelSynth.Scale);
 
             //Three octaves of keys
-            DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 158), -1);
-            DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 95), -1);
-            DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 32), -1);
+            int lowerTone = -1; int mediumTone = -1; int higherTone = -1;
+            if (controller.lastOctave == controller.CurrentLowerKeysOctave)
+                lowerTone = (int)controller.lastNote;
+            if (controller.lastOctave == controller.CurrentMediumKeysOctave)
+                mediumTone = (int)controller.lastNote;
+            if (controller.lastOctave == controller.CurrentHigherKeysOctave)
+                higherTone = (int)controller.lastNote;
+
+            DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 158), lowerTone);
+            DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 95), mediumTone);
+            DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 32), higherTone);
 
             //Panels & buttons
             DrawOscillatorPanel(spriteBatch, soundDriver, synthsPos + new Vector2(118, 38));
