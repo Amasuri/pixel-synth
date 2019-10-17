@@ -1,0 +1,5 @@
+﻿This is a version which was completed in rougly two days.
+It is the first version that I feel more or less describes the idea,
+looks decent and, well, you can play and produce sound using it.
+Some of the sounds don't look too bad.
+Future nostalgia fuel.
