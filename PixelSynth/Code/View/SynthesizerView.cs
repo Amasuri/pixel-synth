@@ -36,6 +36,20 @@ namespace PixelSynth.Code.View
 
             //Oscillators
             DrawOscillatorPanel(spriteBatch, soundDriver, synthsPos + new Vector2(118, 38));
+
+            //ADSR
+            DrawADSRPanel(spriteBatch, soundDriver, synthsPos + new Vector2(158, 66));
+        }
+
+        private void DrawADSRPanel(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if(i != (int)soundDriver.CurrentADSRMode)
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 16 * i), PixelSynth.Scale, new Rectangle(new Point(19 * i, 148), new Point(18, 15)));
+                else
+                    DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 16 * i), PixelSynth.Scale, new Rectangle(new Point(19 * i, 164), new Point(18, 15)));
+            }
         }
 
         private void DrawOscillatorPanel(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
