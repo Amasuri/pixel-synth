@@ -55,11 +55,11 @@ namespace PixelSynth.Code
         private double[] packet1;
         private double[] packet2;
 
-        private SoundPlayer packetPlayer;
+        private readonly SoundPlayer packetPlayer;
 
-        private SineOscillator sineOscillator;
-        private SquareOscillator squareOscillator;
-        private SawToothOscillator sawToothOscillator;
+        private readonly SineOscillator sineOscillator;
+        private readonly SquareOscillator squareOscillator;
+        private readonly SawToothOscillator sawToothOscillator;
 
         private const int samplesPerSecond = 44100;
 

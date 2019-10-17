@@ -12,8 +12,8 @@ namespace PixelSynth.Code.View
 {
     public class SynthesizerView : ADrawingClass
     {
-        private Texture2D baseSprite;
-        private Texture2D buttonTileset;
+        private readonly Texture2D baseSprite;
+        private readonly Texture2D buttonTileset;
         private readonly Vector2 synthsPos;
 
         public SynthesizerView(Game game)

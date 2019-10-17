@@ -7,7 +7,7 @@ namespace PixelSynth.Code
 {
     public class PixelSynth : Game
     {
-        private GraphicsDeviceManager graphics;
+        private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
         public const int Scale = 3;

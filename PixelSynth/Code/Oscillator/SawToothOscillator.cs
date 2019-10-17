@@ -4,9 +4,9 @@ namespace PixelSynth.Code.Oscillator
 {
     public class SawToothOscillator : IOscillator
     {
-        private double _radiansPerCircle = Math.PI * 2;
+        private readonly double _radiansPerCircle = Math.PI * 2;
         private double _currentFrequency = 2000;
-        private double _sampleRate = 44100;
+        private readonly double _sampleRate = 44100;
         private double _detune = 0.0;
 
         public SawToothOscillator(double sampleRate)

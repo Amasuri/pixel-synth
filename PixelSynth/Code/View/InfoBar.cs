@@ -8,7 +8,7 @@ namespace PixelSynth.Code.View
 {
     public class InfoBar
     {
-        private SpriteFont font;
+        private readonly SpriteFont font;
 
         public InfoBar(Game game)
         {
