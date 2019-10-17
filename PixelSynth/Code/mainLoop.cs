@@ -10,8 +10,9 @@ namespace PixelSynth.Code
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        static public Vector2 UnscaledWindowSize => new Vector2(256, 194);
-        static public Vector2 ScaledWindowSize => UnscaledWindowSize * 3;
+        public const int Scale = 3;
+        static public Vector2 UnscaledWindowSize => new Vector2(400, 300);
+        static public Vector2 ScaledWindowSize => UnscaledWindowSize * Scale;
 
         private SoundDriver soundDriver;
         private KeyController controller;
@@ -26,6 +27,8 @@ namespace PixelSynth.Code
 
             graphics.PreferredBackBufferWidth = (int)ScaledWindowSize.X;
             graphics.PreferredBackBufferHeight = (int)ScaledWindowSize.Y;
+            this.IsMouseVisible = true;
+
             graphics.ApplyChanges();
         }
 
@@ -54,9 +57,9 @@ namespace PixelSynth.Code
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.LightSlateGray);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
             synthesizerView.Draw(spriteBatch, controller, soundDriver);
             infoBar.Draw(spriteBatch, controller, soundDriver);

@@ -47,8 +47,6 @@
     <Compile Include="Code\Effect\ElementaryEffect.cs" />
     <Compile Include="Code\Effect\Obertonator.cs" />
     <Compile Include="Code\Graphics\ADrawingClass.cs" />
-    <Compile Include="Code\Graphics\IDrawArranger.cs" />
-    <Compile Include="Code\Graphics\ScreenPool.cs" />
     <Compile Include="Code\Graphics\Types\Animation.cs" />
     <Compile Include="Code\Graphics\Types\Pixel.cs" />
     <Compile Include="Code\mainLoop.cs" />
