@@ -33,27 +33,17 @@ namespace PixelSynth.Code.View
             //Layout
             DrawTexture(spriteBatch, baseSprite, synthsPos, PixelSynth.Scale);
 
-            //Octaves
+            //Three octaves of keys
             DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 158), -1);
             DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 95), -1);
             DrawOctaveAt(spriteBatch, synthsPos + new Vector2(6, 32), -1);
 
-            //Oscillators
+            //Panels & buttons
             DrawOscillatorPanel(spriteBatch, soundDriver, synthsPos + new Vector2(118, 38));
-
-            //ADSR
             DrawADSRPanel(spriteBatch, soundDriver, synthsPos + new Vector2(158, 66));
-
-            //Preset
             DrawPresetPanel(spriteBatch, soundDriver, synthsPos + new Vector2(110, 66));
-
-            //Screen
             DrawScreenInfo(spriteBatch, soundDriver, controller, synthsPos + new Vector2(6, 6));
-
-            //Chords
-            DrawChordModifiers(spriteBatch, soundDriver, synthsPos + new Vector2(26, 228));
-
-            //Sliders must be drawn under layout.
+            DrawChordIndicators(spriteBatch, soundDriver, synthsPos + new Vector2(26, 228));
             DrawOctaveSliders(spriteBatch, controller, synthsPos + new Vector2(6, 75));
         }
 
@@ -71,7 +61,7 @@ namespace PixelSynth.Code.View
             DrawTexturePart(spriteBatch, buttonTileset, pos + new Vector2(0, 126), PixelSynth.Scale, new Rectangle(startSeek, new Point(96, 6)));
         }
 
-        private void DrawChordModifiers(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
+        private void DrawChordIndicators(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)
         {
             for (int i = 0; i < 4; i++)
             {
