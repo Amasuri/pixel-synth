@@ -7,7 +7,7 @@ namespace PixelSynth.Code.IO
     {
         static public CardData ReadCard(string filename)
         {
-            string[] file = File.ReadAllLines("preset/" + filename + ".card");
+            string[] file = File.ReadAllLines("preset/" + filename);
 
             return new CardData
             {

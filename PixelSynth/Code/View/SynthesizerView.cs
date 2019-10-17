@@ -91,6 +91,8 @@ namespace PixelSynth.Code.View
                 ).Replace("Sharp ", "#");
 
             spriteBatch.DrawString(font, note, (pos + new Vector2()) * PixelSynth.Scale, fontColor);
+
+            spriteBatch.DrawString(font, "<- Card ->\n\n" + controller.AtPreset, (pos + new Vector2(124, 0)) * PixelSynth.Scale, fontColor);
         }
 
         private void DrawPresetPanel(SpriteBatch spriteBatch, SoundDriver soundDriver, Vector2 pos)

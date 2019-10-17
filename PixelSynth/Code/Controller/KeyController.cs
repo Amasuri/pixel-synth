@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Xna.Framework.Input;
 using PixelSynth.Code.IO;
 using PixelSynth.Code.Sound;
@@ -18,11 +19,17 @@ namespace PixelSynth.Code.Controller
         public int CurrentMediumKeysOctave { get; private set; }
         public int CurrentHigherKeysOctave { get; private set; }
 
+        public string AtPreset => cardNames[cardIndex].Replace("preset/", "");
+        private string[] cardNames;
+        private int cardIndex = 0;
+
         public KeyController()
         {
             CurrentLowerKeysOctave = 3;
             CurrentMediumKeysOctave = 4;
             CurrentHigherKeysOctave = 5;
+
+            cardNames = Directory.GetFiles("preset/");
         }
 
         public void Update(SoundDriver soundDriver)
@@ -40,7 +47,25 @@ namespace PixelSynth.Code.Controller
             SwitchPresets(soundDriver);
             SwitchOscillators(soundDriver);
 
+            CheckPresets(soundDriver);
+
             oldKeys = keys;
+        }
+
+        private void CheckPresets(SoundDriver soundDriver)
+        {
+            if (keys.IsKeyDown(Keys.Left) && oldKeys.IsKeyUp(Keys.Left))
+                cardIndex--;
+            if (keys.IsKeyDown(Keys.Right) && oldKeys.IsKeyUp(Keys.Right))
+                cardIndex++;
+
+            if (cardIndex < 0)
+                cardIndex = 0;
+            if (cardIndex >= cardNames.Length)
+                cardIndex = cardNames.Length - 1;
+
+            if (keys.IsKeyDown(Keys.Up) && oldKeys.IsKeyUp(Keys.Up))
+                soundDriver.SetFromCard(CardReader.ReadCard(AtPreset));
         }
 
         private void CheckObertonator(SoundDriver soundDriver)
