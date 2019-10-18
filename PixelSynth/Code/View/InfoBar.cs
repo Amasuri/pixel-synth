@@ -19,11 +19,11 @@ namespace PixelSynth.Code.View
         {
             string noteInfo = String.Format
                 (
-                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\n\nPreset: {3}\nWave: {4}\nNoteType: {5}\nADSR: {6}\nObertonator: {7}\n\nAtCard: {8}",
+                    "Note: {0}\nOctave: {1}\nBase Frequency: {2}\n\nEffect Combo: {3}\nWave: {4}\nNoteType: {5}\nADSR: {6}\nObertonator: {7}\n\nAtCard: {8}",
                     controller.lastNote.ToString(),
                     controller.lastOctave.ToString(),
                     Note.GetNote(controller.lastNote, controller.lastOctave).ToString(),
-                    soundDriver.CurrentPreset.ToString(),
+                    soundDriver.CurrentEffectCombo.ToString(),
                     soundDriver.CurrentBaseWave.ToString(),
                     soundDriver.CurrentNoteMode.ToString(),
                     soundDriver.CurrentADSRMode.ToString(),
@@ -35,7 +35,7 @@ namespace PixelSynth.Code.View
 
             string tooltip =
                 "LShift - RShift: play\n" +
-                "1 - 9: select preset\n" +
+                "1 - 9: select effects\n" +
                 "Num1 - Num3: wave\n" +
                 "Hold Num4/Num6: chord\n" +
                 "Num5/7/8/9: ADSR\n" +

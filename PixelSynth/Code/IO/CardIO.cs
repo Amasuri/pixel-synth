@@ -14,7 +14,7 @@ namespace PixelSynth.Code.IO
                 commentary = file[0],
                 ADSR = (SoundDriver.ADSRMode)Convert.ToInt32( file[1] ),
                 obertone = (SoundDriver.ObertoneMode)Convert.ToInt32(file[2]),
-                preset = (SoundDriver.Preset)Convert.ToInt32(file[3]),
+                effectCombo = (SoundDriver.EffectCombo)Convert.ToInt32(file[3]),
                 wave = (SoundDriver.BasicWave)Convert.ToInt32(file[4]),
             };
         }
@@ -25,7 +25,7 @@ namespace PixelSynth.Code.IO
                 "No description\n" +
                 ((int)soundDriver.CurrentADSRMode).ToString() + "\n" +
                 ((int)soundDriver.CurrentObertonator).ToString() + "\n" +
-                ((int)soundDriver.CurrentPreset).ToString() + "\n" +
+                ((int)soundDriver.CurrentEffectCombo).ToString() + "\n" +
                 ((int)soundDriver.CurrentBaseWave).ToString();
 
             string filename = Guid.NewGuid().ToString().Substring(0, 8) + ".card";

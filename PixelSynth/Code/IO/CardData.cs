@@ -12,7 +12,7 @@ namespace PixelSynth.Code.IO
         public string commentary;
         public ObertoneMode obertone;
         public ADSRMode ADSR;
-        public Preset preset;
+        public EffectCombo effectCombo;
         public BasicWave wave;
     }
 }

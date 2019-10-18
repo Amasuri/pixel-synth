@@ -44,7 +44,7 @@ namespace PixelSynth.Code.Controller
             PlayMediumNotes(soundDriver);
             PlayHigherNotes(soundDriver);
 
-            SwitchPresets(soundDriver);
+            SwitchCombos(soundDriver);
             SwitchOscillators(soundDriver);
 
             CheckPresets(soundDriver);
@@ -115,12 +115,12 @@ namespace PixelSynth.Code.Controller
                 soundDriver.SwitchBaseWaveTo(BasicWave.Sawtooth);
         }
 
-        private void SwitchPresets(SoundDriver soundDriver)
+        private void SwitchCombos(SoundDriver soundDriver)
         {
             if (keys.IsKeyDown(Keys.D1) && oldKeys.IsKeyUp(Keys.D1))
-                soundDriver.SwitchPresetTo(Preset.DefaultWave);
+                soundDriver.SwitchPresetTo(EffectCombo.NoEffect);
             else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
-                soundDriver.SwitchPresetTo(Preset.SoftReverbClap);
+                soundDriver.SwitchPresetTo(EffectCombo.SoftReverbClap);
         }
 
         private void ReloadCardNames()

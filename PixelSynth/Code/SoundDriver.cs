@@ -40,10 +40,10 @@ namespace PixelSynth.Code
             MinorChord,
         }
 
-        public Preset CurrentPreset { get; private set; }
-        public enum Preset
+        public EffectCombo CurrentEffectCombo { get; private set; }
+        public enum EffectCombo
         {
-            DefaultWave,
+            NoEffect,
             SoftReverbClap,
         }
 
@@ -74,7 +74,7 @@ namespace PixelSynth.Code
             squareOscillator = new SquareOscillator(samplesPerSecond);
             sawToothOscillator = new SawToothOscillator(samplesPerSecond);
 
-            CurrentPreset = Preset.DefaultWave;
+            CurrentEffectCombo = EffectCombo.NoEffect;
             CurrentBaseWave = BasicWave.Sine;
             CurrentNoteMode = NoteMode.Single;
             CurrentADSRMode = ADSRMode.NoADSR;
@@ -102,9 +102,9 @@ namespace PixelSynth.Code
             CurrentNoteMode = noteMode;
         }
 
-        public void SwitchPresetTo(Preset preset)
+        public void SwitchPresetTo(EffectCombo combo)
         {
-            CurrentPreset = preset;
+            CurrentEffectCombo = combo;
         }
 
         public void SwitchBaseWaveTo(BasicWave wave)
@@ -117,7 +117,7 @@ namespace PixelSynth.Code
             CurrentADSRMode = card.ADSR;
             CurrentBaseWave = card.wave;
             CurrentObertonator = card.obertone;
-            CurrentPreset = card.preset;
+            CurrentEffectCombo = card.effectCombo;
         }
 
         public void PlayPacket(Note.Type note, int octave)
@@ -285,7 +285,7 @@ namespace PixelSynth.Code
 
         private void ModifyGeneratedPacket(Note.Type note, int octave)
         {
-            if (CurrentPreset == Preset.SoftReverbClap)
+            if (CurrentEffectCombo == EffectCombo.SoftReverbClap)
             {
                 packet1 = ElementaryEffect.BitDecimator(packet1);
                 packet1 = ElementaryEffect.BitMediator(packet1);
