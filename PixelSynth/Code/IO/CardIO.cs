@@ -3,7 +3,7 @@ using System.IO;
 
 namespace PixelSynth.Code.IO
 {
-    static public class CardReader
+    static public class CardIO
     {
         static public CardData ReadCard(string filename)
         {
@@ -17,6 +17,20 @@ namespace PixelSynth.Code.IO
                 preset = (SoundDriver.Preset)Convert.ToInt32(file[3]),
                 wave = (SoundDriver.BasicWave)Convert.ToInt32(file[4]),
             };
+        }
+
+        static public void WriteNewCard(SoundDriver soundDriver)
+        {
+            string data =
+                "No description\n" +
+                ((int)soundDriver.CurrentADSRMode).ToString() + "\n" +
+                ((int)soundDriver.CurrentObertonator).ToString() + "\n" +
+                ((int)soundDriver.CurrentPreset).ToString() + "\n" +
+                ((int)soundDriver.CurrentBaseWave).ToString();
+
+            string filename = Guid.NewGuid().ToString().Substring(0, 8) + ".card";
+
+            File.WriteAllText("preset/" + filename, data);
         }
     }
 }

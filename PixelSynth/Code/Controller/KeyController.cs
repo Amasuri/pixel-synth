@@ -29,7 +29,7 @@ namespace PixelSynth.Code.Controller
             CurrentMediumKeysOctave = 4;
             CurrentHigherKeysOctave = 5;
 
-            cardNames = Directory.GetFiles("preset/");
+            ReloadCardNames();
         }
 
         public void Update(SoundDriver soundDriver)
@@ -65,7 +65,13 @@ namespace PixelSynth.Code.Controller
                 cardIndex = cardNames.Length - 1;
 
             if (keys.IsKeyDown(Keys.Up) && oldKeys.IsKeyUp(Keys.Up))
-                soundDriver.SetFromCard(CardReader.ReadCard(AtPreset));
+                soundDriver.SetFromCard(CardIO.ReadCard(AtPreset));
+
+            if (keys.IsKeyDown(Keys.Down) && oldKeys.IsKeyUp(Keys.Down))
+            {
+                CardIO.WriteNewCard(soundDriver);
+                ReloadCardNames();
+            }
         }
 
         private void CheckObertonator(SoundDriver soundDriver)
@@ -115,6 +121,12 @@ namespace PixelSynth.Code.Controller
                 soundDriver.SwitchPresetTo(Preset.DefaultWave);
             else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
                 soundDriver.SwitchPresetTo(Preset.SoftReverbClap);
+        }
+
+        private void ReloadCardNames()
+        {
+            cardNames = Directory.GetFiles("preset/");
+            cardIndex = 0;
         }
 
         private void PlayLowerNotes(SoundDriver soundDriver)
