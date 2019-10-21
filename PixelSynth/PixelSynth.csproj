@@ -135,16 +135,13 @@
     <None Include="preset\a1_default.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="preset\metal2.card">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="preset\metal.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="preset\organ.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="preset\metal3.card">
+    <None Include="preset\metal2.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
