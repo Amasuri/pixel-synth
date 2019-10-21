@@ -123,6 +123,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
+    <None Include="preset\bassy.card">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="preset\gritty.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

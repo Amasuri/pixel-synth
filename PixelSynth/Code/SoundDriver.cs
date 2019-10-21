@@ -21,7 +21,8 @@ namespace PixelSynth.Code
             BasicHarmonics,
             RicherHarmonics,
             Distortion,
-            Gritty
+            Gritty,
+            Bassy
         }
 
         public ADSRMode CurrentADSRMode { get; private set; }
@@ -89,8 +90,8 @@ namespace PixelSynth.Code
             if (CurrentObertonator < 0)
                 CurrentObertonator = ObertoneMode.NoObertone;
 
-            if (CurrentObertonator > ObertoneMode.Gritty)
-                CurrentObertonator = ObertoneMode.Gritty;
+            if (CurrentObertonator > ObertoneMode.Bassy)
+                CurrentObertonator = ObertoneMode.Bassy;
         }
 
         public void SwitchADSRTo(ADSRMode mode)
@@ -150,6 +151,9 @@ namespace PixelSynth.Code
 
             if (CurrentObertonator == ObertoneMode.Gritty)
                 packet1 = Obertonator.GrittyHarmonics(packet1, Oscillator, Note.GetNote(note, octave), samplesPerSecond);
+
+            if (CurrentObertonator == ObertoneMode.Bassy)
+                packet1 = Obertonator.BassyHarmonics(packet1, Oscillator, Note.GetNote(note, octave), samplesPerSecond);
         }
 
         private void ApplyADSR(Note.Type note, int octave)
