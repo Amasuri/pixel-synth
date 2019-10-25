@@ -121,6 +121,8 @@ namespace PixelSynth.Code.Controller
                 soundDriver.SwitchPresetTo(EffectCombo.NoEffect);
             else if (keys.IsKeyDown(Keys.D2) && oldKeys.IsKeyUp(Keys.D2))
                 soundDriver.SwitchPresetTo(EffectCombo.SoftReverbClap);
+            else if (keys.IsKeyDown(Keys.D3) && oldKeys.IsKeyUp(Keys.D3))
+                soundDriver.SwitchPresetTo(EffectCombo.LooseStrings);
         }
 
         private void ReloadCardNames()

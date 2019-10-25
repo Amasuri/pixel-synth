@@ -47,6 +47,7 @@ namespace PixelSynth.Code
         {
             NoEffect,
             SoftReverbClap,
+            LooseStrings,
         }
 
         public BasicWave CurrentBaseWave { get; private set; }
@@ -304,7 +305,20 @@ namespace PixelSynth.Code
 
         private void ModifyGeneratedPacket(Note.Type note, int octave)
         {
-            ;
+            if (CurrentEffectCombo == EffectCombo.LooseStrings)
+            {
+                IOscillator oscillator = null;
+                oscillator = SelectOscillator(oscillator);
+
+                var supPacket1 = new double[samplesPerSecond];
+                GetBasicPacketFromOscillator(note, octave-1, ref supPacket1);
+
+                var supPacket2 = new double[samplesPerSecond];
+                GetBasicPacketFromOscillator(note, octave+1, ref supPacket2);
+
+                packet1 = ElementaryEffect.BitInverter(packet1);
+                packet1 = ElementaryEffect.TriWaveAddition(packet1, supPacket1, supPacket2);
+            }
         }
 
         private IOscillator SelectOscillator(IOscillator Oscillator)

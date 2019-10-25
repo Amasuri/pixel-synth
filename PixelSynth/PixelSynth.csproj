@@ -126,6 +126,9 @@
     <None Include="preset\bassy.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="preset\heavy_driver.card">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="preset\gritty.card">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

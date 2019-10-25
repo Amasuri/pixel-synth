@@ -53,5 +53,20 @@
 
             return npacket;
         }
+
+        static public double[] BitInverter(double[] packet)
+        {
+            double[] npacket = (double[])packet.Clone();
+
+            for (int i = 0; i < packet.Length; i++)
+            {
+                if(npacket[i] > 0.6f)
+                    npacket[i] = -1.6f;
+                if (npacket[i] < -0.6f)
+                    npacket[i] = 1.6f;
+            }
+
+            return npacket;
+        }
     }
 }
