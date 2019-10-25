@@ -125,10 +125,11 @@ namespace PixelSynth.Code
         public void PlayPacket(Note.Type note, int octave)
         {
             GetBasicPacketFromOscillator(note, octave, ref packet1);
-            ModifyGeneratedPacket(note, octave);
+            PreModifyGeneratedPacket(note, octave);
             ApplyHarmonics(note, octave);
             ChordifyPacketIfApplicable(note, octave);
             ApplyADSR(note, octave);
+            ModifyGeneratedPacket(note, octave);
             WritePacketToMemoryAsWave(packet1, packet1.Length);
 
             packetPlayer.Stream.Seek(0, SeekOrigin.Begin);
@@ -291,7 +292,7 @@ namespace PixelSynth.Code
             }
         }
 
-        private void ModifyGeneratedPacket(Note.Type note, int octave)
+        private void PreModifyGeneratedPacket(Note.Type note, int octave)
         {
             if (CurrentEffectCombo == EffectCombo.SoftReverbClap)
             {
@@ -299,6 +300,11 @@ namespace PixelSynth.Code
                 packet1 = ElementaryEffect.BitMediator(packet1);
                 packet1 = ElementaryEffect.BitHyperbolicCut(packet1);
             }
+        }
+
+        private void ModifyGeneratedPacket(Note.Type note, int octave)
+        {
+            ;
         }
 
         private IOscillator SelectOscillator(IOscillator Oscillator)
